@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ScoreBoard</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--<link rel="stylesheet" href="style.css" type="text/css"/>-->
+  </head>
+  <style>
+    .section {
+      padding: 0;
+    }
+
+    .player .label,
+    input {
+      text-align: center;      
+    }
+
+    .score a {
+      height: 100%;
+      font-size: 25px;
+    }
+    .score input {
+      font-size: 40px;
+      text-align: center;
+    }
+    body {
+      background-color: #aaa;
+    }
+
+    .player {
+      max-width: 300px;
+    }
+
+    .container {
+      max-width: 900px;
+      background-color: #fff;
+      padding: 20px;
+    }
+
+    img{
+      position:absolute;
+      top:0;
+      left: 0;
+      z-index: 9999;
+      display: none;
+    }
+  </style>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+      <!--<img id="image" src="image.png" alt="">-->
+
+    <section class="section">
+      <div id="app" class="container">
+        <h1 class="title">Score board</h1>
+        <div class="columns">
+            <div class="player column">
+              <div class="label">Player 1</div>
+              <div class="field has-addons">
+                <div class="control is-expanded">
+                  <input class="input" type="text" placeholder="Player 1 name" @keyup="onChanged" @change="onChanged" v-model="players[0].name">
+                </div>
+                <div class="control">
+                  <a class="button is-danger" v-on:click="clearPlayerName(0)">x</a>
+                </div>
+              </div>
+              <div class="field has-addons score">
+                  <div class="control">
+                      <a class="button" @click="modifyScore(0, -1)">-</a>
+                  </div>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Score P1" @keyup="onChanged" @change="onChanged" v-model="players[0].score">
+                </div>
+                <div class="control">
+                    <a class="button" @click="modifyScore(0, 1)">+</a>
+                </div>
+              </div>
+                
+                
+                </div>
+                <div class="column" style="margin-top: 40px">
+                    <div class="field">
+                        <a href="#" class="button is-fullwidth" v-on:click="switchPlayers()"><i class="fas fa-arrow-left"></i>&nbsp;Switch players&nbsp;<i class="fas fa-arrow-right"></i></a>
+                        <a href="#" class="button is-fullwidth" v-on:click="resetScore()">Reset score</a>
+                        <a href="#" class="button is-fullwidth is-danger" v-on:click="clearPlayers()">Clear players</a>                
+                    </div>
+                    <!--<label class="label">Label:</label>-->
+                    <div class="field has-addons">
+                      <div class="control is-expanded">
+                        <input class="input is-fullwidth" type="text" placeholder="Label (eg: Quarters finals)" v-model="label">
+                      </div>
+                      <div class="control">
+                          <a class="button is-danger" v-on:click="clearLabel()">x</a>
+                      </div>
+                    </div>
+                </div>
+              <div class="player column">
+                  <div class="label">Player 2</div>
+                  <div class="field has-addons">
+                    <div class="control is-expanded">
+                      <input class="input" type="text" placeholder="Player 2 name" @keyup="onChanged" @change="onChanged" v-model="players[1].name">
+                    </div>
+                    <div class="control">
+                      <a class="button is-danger" v-on:click="clearPlayerName(1)">x</a>
+                    </div>
+                </div>
+                <div class="field has-addons score">
+                  <div class="control">
+                      <a class="button" @click="modifyScore(1, -1)">-</a>
+                  </div>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Score P2" @keyup="onChanged" @change="onChanged" v-model="players[1].score">
+                  </div>
+                  <div class="control">
+                      <a class="button" @click="modifyScore(1, 1)">+</a>
+                  </div>
+                </div>
+                
+              </div>      
+        </div>
+        <div style="text-align: center; margin-bottom: 25px;">
+            <label class="checkbox">
+                <input type="checkbox" @click="toggleAlwaysOnTop" v-model="alwaysOnTop"> Always on top
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" v-model="autoUpdate"> Auto update
+              </label>  
+        </div>
+        <a href="#" class="button is-primary is-large is-fullwidth" v-on:click="update()">Update</a>        
+      </div>
+    </section>
+  </body>
+  <script src="index.js"></script>
+</html>
