@@ -5,7 +5,8 @@ const currentWindow = remote.getCurrentWindow();
 
 
 const basePath = process.env.APP_PATH;
-alert(basePath);
+//alert(basePath);
+const outputPath = 'C:\\streaming\\texts';
 
 var vueApp = new Vue({
   el: '#app',
@@ -20,7 +21,8 @@ var vueApp = new Vue({
         score: 0
       }
     ],
-    label: '',
+    stage: '',
+    message: '',
     autoUpdate: false,
     alwaysOnTop: true
   },
@@ -39,15 +41,15 @@ var vueApp = new Vue({
 
     clearPlayers: function() {
       this.players[0].name = this.players[1].name = this.players[0].score = this.players[1].score = '';
-      this.label = '';
+      this.stage = '';
       this.onChanged();
     },
     switchPlayers: function () {
       this.players.push(this.players.shift());
       this.onChanged();
     },
-    clearLabel: function () {
-      this.label = '';
+    clearStage: function () {
+      this.stage = '';
       this.onChanged();
     },
     onChanged: function () {
@@ -56,36 +58,34 @@ var vueApp = new Vue({
       }
     },
     load: function () {
-      const outputPath = 'output';
       const files = {
         'p1name.txt': 'this.players[0].name',
         'p1score.txt': 'this.players[0].score',
         'p2name.txt': 'this.players[1].name',
         'p2score.txt': 'this.players[1].score',
-        'label.txt': 'this.label'
+        'stage.txt': 'this.stage',
+        'message.txt': 'this.message'
       };
-      
       for (let filename in files) {
-        let filePath = path.join(basePath, outputPath, filename);
+        let filePath = path.join(outputPath, filename);
         fs.readFile(filePath, 'utf8', (err, data) => {
           if(err) { return console.log(err); }
-          eval(files[filename] + "='" + data + "'");
+          eval(files[filename] + "=`" + data + "`");          
         });
       }
     },
     update: function () {
-      var basepath = '.';
-      const outputPath = 'output';
       const files = {
         'p1name.txt': this.players[0].name,
         'p1score.txt': this.players[0].score,
         'p2name.txt': this.players[1].name,
         'p2score.txt': this.players[1].score,
-        'label.txt': this.label
+        'stage.txt': this.stage,
+        'message.txt': this.message
       };
       
       for (let filename in files) {
-        var filePath = path.join(basePath, outputPath, filename);
+        var filePath = path.join(outputPath, filename);
         fs.writeFile(filePath, files[filename], function(err) {
           if(err) { return console.log(err); }
         });

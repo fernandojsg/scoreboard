@@ -63,7 +63,6 @@
 
     <section class="section">
       <div id="app" class="container">
-        <h1 class="title">Score board</h1>
         <div class="columns">
             <div class="player column">
               <div class="label">Player 1</div>
@@ -98,10 +97,10 @@
                     <!--<label class="label">Label:</label>-->
                     <div class="field has-addons">
                       <div class="control is-expanded">
-                        <input class="input is-fullwidth" type="text" placeholder="Label (eg: Quarters finals)" v-model="label">
+                        <input class="input is-fullwidth" type="text" placeholder="Stage (eg: Quarters finals)" v-model="stage">
                       </div>
                       <div class="control">
-                          <a class="button is-danger" v-on:click="clearLabel()">x</a>
+                          <a class="button is-danger" v-on:click="clearStage()">x</a>
                       </div>
                     </div>
                 </div>
@@ -126,7 +125,6 @@
                       <a class="button" @click="modifyScore(1, 1)">+</a>
                   </div>
                 </div>
-                
               </div>      
         </div>
         <div style="text-align: center; margin-bottom: 25px;">
@@ -135,7 +133,8 @@
               </label>
               <label class="checkbox">
                 <input type="checkbox" v-model="autoUpdate"> Auto update
-              </label>  
+              </label>
+              <textarea class="textarea" placeholder="Message" v-model="message"></textarea>              
         </div>
         <a href="#" class="button is-primary is-large is-fullwidth" v-on:click="update()">Update</a>        
       </div>

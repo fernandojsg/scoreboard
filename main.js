@@ -13,15 +13,16 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800, 
-    height: 450,
+    height: 520,
     titleBarStyle: 'hidden-inset',
     title: 'Notes',
     show: true,
-    minWidth: 800,
-    minHeight: 600,    
-    alwaysOnTop: true
+    //resizable: false,
+    //alwaysOnTop: true
   });
   
+  mainWindow.setMenu(null);
+
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
